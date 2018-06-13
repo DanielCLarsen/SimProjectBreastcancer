@@ -47,3 +47,7 @@ for i in range(0,n):
     
 
 p=1-stats.chi2.cdf(test,df=n-1)
+
+temp = (np.asarray(p_t.T))[:,0]
+
+chi2, p1 = stats.chisquare(p_t_emp,temp)
