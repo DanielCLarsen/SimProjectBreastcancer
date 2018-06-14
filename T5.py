@@ -46,7 +46,7 @@ for cCalc in range(0,10):
                     if cdf[X[t],j-1]<U and U<=cdf[X[t],j]: #Crude check
                         X.append(j-1)
                 t+=1
-            survival_times[count]=(len(X)-1)
+            survival_times[j]=(len(X)-1)
             if len(X)<=351:
                 count+=1
         #Fraction:
@@ -59,7 +59,7 @@ for cCalc in range(0,10):
         cList[cCalc] = covariance[0,1]/varList[cCalc]
         
 
-cMean = np.mean(cList) #0.0026699819530815235
+cMean = np.mean(cList) #0.002683885232107717
 
 #Now we calculate all the other values for another data set than c has been calculated on.
 #Lets calculate Z
@@ -86,10 +86,10 @@ for ite in range(0,100):
 
 Z = [0]*100
 for i in range(0,len(Z)):
-    Z[i] = deathFracList[i] + 0.0026699819530815235*(meanList[i]-E_T)
+    Z[i] = deathFracList[i] + cMean*(meanList[i]-E_T)
     
-varDeathFrac = np.var(deathFracList) #0.00103
-varZ = np.var(Z) #0.00254
+varDeathFrac = np.var(deathFracList) #0.0008009275000000006
+varZ = np.var(Z) #0.0017878243652676975
 #variance of variate is higher than crude... doesnt make sense.
 
 
