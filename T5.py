@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import heapq
 import math
 
-#Task 1
+#Task 5
 
 P = np.matrix([[0.9915,0.005,0.0025,0,0.001],
                [0,0.986,0.005,0.004,0.005],
@@ -89,7 +89,7 @@ cMean = 0.0026699819530815235
 Z = [0]*100
 for i in range(0,len(Z)):
     Z[i] = deathFracList[i] + cMean*(meanList[i]-E_T)
-    
+
 varDeathFrac = np.var(deathFracList) #0.00103
 varZ = np.var(Z) #0.00254
 varRed=(1-varZ/varDeathFrac)*100 # in percentage
