@@ -94,6 +94,15 @@ varDeathFrac = np.var(deathFracList) #0.00103
 varZ = np.var(Z) #0.00254
 varRed=(1-varZ/varDeathFrac)*100 # in percentage
 #variance using control variate is smaller
+# 95% confidence intervals
+def mean_confidence_interval(data, confidence=0.95):
+    a = 1.0*np.array(data)
+    n = len(a)
+    m, se = np.mean(a), stats.sem(a)
+    h = se * stats.t._ppf((1+confidence)/2., n-1)
+    return m-h, m, m+h
 
+X_CI=mean_confidence_interval(deathFracList)
+Z_CI=mean_confidence_interval(Z)
 
 
