@@ -88,8 +88,35 @@ plt.plot(sortSurv2,S, label='Treatment',color="blue")
 plt.legend()
 # blue is better.
 
-    
-    
+
+#####TASK 10###########
+#J = np.sort(set().union(list(sortSurv1),list(sortSurv2)))
+J = np.sort(np.union1d(sortSurv1,sortSurv2))
+nEvents=len(J)
+O1 =[0]*nEvents
+O2 =[0]*nEvents
+O =[0]*nEvents
+E =[0]*nEvents
+N1 =[0]*nEvents
+N2 =[0]*nEvents
+N =[0]*nEvents
+V =[0]*nEvents
+for i in range(1,nEvents):
+    if J[i] in sortSurv1:
+        O1[i]=O1[i-1]+1
+    else:
+        O1[i]=O1[i-1]
+    if J[i] in sortSurv2:
+        O2[i]=O2[i-1]+1
+    else:
+        O2[i]=O2[i-1]
+
+    O[i]=O1[i]+O2[i]
+    N1[i]=women-O1[i]
+    N2[i]=women-O2[i]
+    N[i]=N1[i]+N2[i]
+    E[i]=(O[i]/N[i])*N1[i] 
+    V[i]=O[i]*(N1[i]/N[i])*(1-N1[i]/N[i])*(N[i]-O[i])/(N[i]-1)
 
 
 
