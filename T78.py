@@ -36,12 +36,7 @@ cdf=np.zeros((n-1,n+1))
 for i in range(0,n-1):
     for j in range(1,n+1):
         cdf[i,j] = cdf[i,j-1]+P[i,j-1]                    
-    
-    
-    
 
-    
-    
 women = 1000
 survTime = [0]*women
 clock = 0
