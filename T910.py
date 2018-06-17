@@ -93,8 +93,8 @@ plt.legend()
 #J = np.sort(set().union(list(sortSurv1),list(sortSurv2)))
 J = np.sort(np.union1d(sortSurv1,sortSurv2))
 nEvents=len(J)
-O1 =[0]*nEvents
-O2 =[0]*nEvents
+O1_event =[0]*nEvents
+O2_event =[0]*nEvents
 O =[0]*nEvents
 E =[0]*nEvents
 N1 =[0]*nEvents
