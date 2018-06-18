@@ -19,24 +19,31 @@ def Q_pdf(Q):
     return Q_pdf
 
 # Initial guess of Q
-'''
+Q_0=[ [ [],[],[],[],[] ], [ [],[],[],[],[] ], [ [],[],[],[],[] ], [ [],[],[],[],[] ]]
+women=1000
+n=5
+
+for i in range(women):
+    count=1
+    for j in range(len(Y[i])-1):
+        if Y[i][j]==Y[i][j+1]:
+            count+=1
+        else:
+            Q_0[Y[i][j]][Y[i][j+1]].append(1/(48*count))
+            count=1
+
 Q_k=np.zeros(shape=(n-1,n))
 
-for i in range(0,n-1):
-    temp=np.random.uniform(0,1,size=n-(i+1))
-    Q_k[i,(i+1):n]=temp/sum(temp)
-    Q_k[i]=-
-'''
-# perfect guess for testing
-n=5
-Q_k = np.matrix([[-0.00475, 0.0025, 0.00125 ,0,0.001],
-               [0.0, -0.007, 0.0 ,0.002, 0.005],
-               [0.0, 0.0, -0.008, 0.003, 0.005],
-               [0.0, 0.0, 0.0, -0.009, 0.009],
-               [0.0, 0.0, 0.0, 0.0, 0.0]])
+for i in range(n-1):
+    for j in range(i+1,n):
+        Q_k[i,j]=np.mean(Q_0[i][j])
+        if math.isnan(Q_k[i,j]):
+            Q_k[i,j]=0
+        Q_k[i,i]-=Q_k[i,j]
+        
+        
 
-Q_pdf = Q_pdf(Q_k)
-women=1000
+'''
 states = [0,1,2,3,4]
 X=[[0] for i in range(women)]
 for i in range(women):
@@ -61,6 +68,7 @@ S=[0]*n # need to record clock times
 for i in range(women):
     for j in range(1,len(X[i])):
         N[X[i][j-1],X[i][j]]]+=1
+'''
 
 
     
