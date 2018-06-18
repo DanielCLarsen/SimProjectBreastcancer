@@ -30,15 +30,17 @@ states=[0,1,2,3,4]
 for i in range(0,women):
     X=[0]
     clock = 0
-    TimeInState=[0]*n
+    TimeInState=[0]
     while X[-1]!=4:
         clock += np.random.exponential(1/(-Q2[X[-1],X[-1]]))
-        TimeInState[X[-1]]=clock
+        TimeInState.append(clock)
         X.append(np.random.choice(states,p=P2[X[-1],:]))
     count=1
-    for j in range(0,n):
-        if TimeInState[j]>0
-              
-            Y[i].append(count-1)
+    for j in range(len(X)-1):
+        while TimeInState[j]<48*count and 48*count<TimeInState[j+1]:
+            Y[i].append(X[j])
             count+=1
+    Y[i].append(4)
+        
+            
     
