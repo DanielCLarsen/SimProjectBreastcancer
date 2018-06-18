@@ -78,36 +78,3 @@ for i in range(women):
                     S[X_traj[jump]]+=TimeInState[jump+1]
             X_traj=[Y[i][count]]
             TimeInState=[0]
-
-
-'''
-states = [0,1,2,3,4]
-X=[[0] for i in range(women)]
-for i in range(women):
-    X_temp=[X[i][-1]]
-    clock = 0
-    temp_clock=0
-    count=1
-    while X[i][-1]!=4:
-        temp_clock += np.random.exponential(1/(-Q_k[X_temp[-1],X_temp[-1]]))
-        X_temp.append(np.random.choice(states,p=np.squeeze(pdf[X_temp[-1],:])))
-        if temp_clock >= 48*count or X_temp[-1]==4:
-            if X_temp[-1]==Y[i][count]:
-                X[i]=X[i]+X_temp[1:]
-                count+=1
-                clock+=temp_clock
-            X_temp=[X[i][-1]]
-            temp_clock=clock
-
-'''
-
-'''
-for i in range(women):
-    for j in range(1,len(X[i])):
-        N[X[i][j-1],X[i][j]]]+=1
-'''
-
-
-    
-                
-                
