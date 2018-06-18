@@ -46,7 +46,7 @@ for i in range(women):
     count=1
     while X[i][-1]!=4:
         temp_clock += np.random.exponential(1/(-Q_k[X_temp[-1],X_temp[-1]]))
-        X_temp.append(np.random.choice(states,size=1,p=np.squeeze(Q_pdf[X_temp[-1],:])))
+        X_temp.append(np.random.choice(states,p=np.squeeze(Q_pdf[X_temp[-1],:])))
         if temp_clock >= 48*count or X_temp[-1]==4:
             if X_temp[-1]==Y[i][count]:
                 X[i]=X[i]+X_temp[1:]
@@ -57,6 +57,10 @@ for i in range(women):
 
 N=np.zeros((n,n)) # easy to increment using index
 S=[0]*n # need to record clock times
+
+for i in range(women):
+    for j in range(1,len(X[i])):
+        N[X[i][j-1],X[i][j]]]+=1
 
 
     
