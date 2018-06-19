@@ -99,27 +99,34 @@ while Norm_inf>epsilon:
         TimeInState=[0]
         count=0
         X_traj=[Y[i][count]]
+        nAcc=0
         while count<(len(Y[i])-1):
-            advance=True
+            accept=True
             TimeInState.append(TimeInState[-1]+np.random.exponential(1/(-Q_k[X_traj[-1],X_traj[-1]])))
             X_traj.append(np.random.choice(states,p=np.squeeze(pdf[X_traj[-1],:])))
-            if TimeInState[-1]>=48 or X_traj[-1]==4:
-                nComparisons=max(int(np.floor(TimeInState[-1]/48)),1)
-                for j in range(1,nComparisons-1):
-                    for ind in range(1,len(TimeInState)-1):
-                        if (TimeInState[ind-1]<48*(count+j) and 48*(count+j)<TimeInState[ind]) and Y[i][min(count+j,len(Y[i])-1)]!=X_traj[ind-1]:
-                            advance=False
-                            break
-                if count+nComparisons<len(Y[i]) and X_traj[-1]>Y[i][count+nComparisons]:
-                    advance=False
-                if advance==True:
+           # if X_traj[-1]==4:
+                
+            if TimeInState[-1]>=48:
+                nComparisons=int(np.floor(TimeInState[-1]/48))
+                for j in range(1,nComparisons+1):
+                    if Y[i][count+j]!=X_traj[-2]: # can go to far in Y
+                        accept=False
+                        nAcc=j
+                        break
+                if accept and Y[i][min(count+nComparisons+1,len(Y[i])-1)]<X_traj[-1]: #not sure
+                    accept=False
+                    nAcc=nComparisons
+                if accept:
                     count+=nComparisons
-                    count=min(count,len(Y[i])-1)
                     for jump in range(len(X_traj)-1):
                         N[X_traj[jump],X_traj[jump+1]]+=1
-                        S[X_traj[jump]]+=TimeInState[jump+1]
-                X_traj=[Y[i][count]]
-                TimeInState=[0]
+                        S[X_traj[jump]]+=TimeInState[jump]
+                        TimeInState=[TimeInState[-1]-48*nComparisons]
+                        X_traj=[X_traj[-1]]
+                else:
+                    count+=nAcc
+                    X_traj=[X_traj[-2]]
+                    TimeInState=[0]
     for i in range(n-1):
         for j in range(n):
             Q_kp1[i,j]=N[i,j]/S[i]
