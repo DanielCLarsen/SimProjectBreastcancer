@@ -83,11 +83,15 @@ for i in range(n-1):
 
 pdf = Q_pdf(Q_k)
 states=[0,1,2,3,4]; epsilon=0.001; Q_kp1=np.zeros(shape=(n-1,n)); Norm_inf=1
-N=np.zeros((n,n)) # easy to increment using index
-S=[0]*n # need to record clock times
 Inf_norm=1
-
+Q_list = [Q_k]
+k=0
+N_list = []
+S_list = []
 while Inf_norm>epsilon:
+    Q_k=Q_list[k]
+    N=np.zeros((n,n)) # easy to increment using index
+    S=[0]*n # need to record clock times
     print("------------------------------")
     print("INF-NORM: ",Inf_norm)
     for w in range(women):    
@@ -125,5 +129,8 @@ while Inf_norm>epsilon:
         for j in range(n):
             Q_kp1[i,j]=N[i,j]/S[i]
         Q_kp1[i,i]=-sum(Q_kp1[i,:])
-    Inf_norm=np.amax(abs(Q_kp1-Q_k))
-    Q_k=Q_kp1
+    Q_list.append(Q_kp1)
+    Inf_norm=np.amax(abs(Q_list[k+1]-Q_list[k]))
+    k+=1
+    S_list.append(S)
+    N_list.append(N)
